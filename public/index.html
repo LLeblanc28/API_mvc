@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API REST - Test Interface</title>
+</head>
+<body>
+    <h1>Interface de Test API REST</h1>
+    
+    <hr>
+    
+    <h2>📋 Liste des Utilisateurs</h2>
+    <button onclick="getAllUsers()">GET /api/v1/users</button>
+    
+    <hr>
+    
+    <h2>🔍 Détail d'un Utilisateur</h2>
+    <input type="number" id="userId" placeholder="ID utilisateur" value="1">
+    <button onclick="getUserById()">GET /api/v1/users/:id</button>
+    
+    <hr>
+    
+    <h2>➕ Créer un Utilisateur</h2>
+    <input type="text" id="newName" placeholder="Nom" value="Tony Stark">
+    <input type="email" id="newEmail" placeholder="Email" value="tony@stark.com">
+    <button onclick="createUser()">POST /api/v1/users</button>
+    
+    <hr>
+    
+    <h2>✏️ Mettre à Jour un Utilisateur</h2>
+    <input type="number" id="updateId" placeholder="ID" value="1">
+    <input type="text" id="updateName" placeholder="Nouveau nom" value="Tony Stark Updated">
+    <input type="email" id="updateEmail" placeholder="Nouveau email" value="tony.updated@stark.com">
+    <button onclick="updateUser()">PUT /api/v1/users/:id</button>
+    
+    <hr>
+    
+    <h2>🗑️ Supprimer un Utilisateur</h2>
+    <input type="number" id="deleteId" placeholder="ID" value="2">
+    <button onclick="deleteUser()">DELETE /api/v1/users/:id</button>
+    
+    <hr>
+    
+    <h2>📤 Résultat</h2>
+    <pre id="result">Les résultats s'afficheront ici...</pre>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/v1';
+
+        function displayResult(data) {
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        }
+
+        function displayError(error) {
+            document.getElementById('result').textContent = 'ERREUR: ' + error.message;
+        }
+
+        // GET - Liste tous les utilisateurs
+        async function getAllUsers() {
+            try {
+                const response = await fetch(`${API_URL}/users`);
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // GET - Détail d'un utilisateur
+        async function getUserById() {
+            const id = document.getElementById('userId').value;
+            try {
+                const response = await fetch(`${API_URL}/users/${id}`);
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // POST - Créer un utilisateur
+        async function createUser() {
+            const name = document.getElementById('newName').value;
+            const email = document.getElementById('newEmail').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/users`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email })
+                });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // PUT - Mettre à jour un utilisateur
+        async function updateUser() {
+            const id = document.getElementById('updateId').value;
+            const name = document.getElementById('updateName').value;
+            const email = document.getElementById('updateEmail').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/users/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email })
+                });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // DELETE - Supprimer un utilisateur
+        async function deleteUser() {
+            const id = document.getElementById('deleteId').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/users/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+    </script>
+</body>
+</html>
