@@ -10,6 +10,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
+
+
 // logs
 const logStream = fs.createWriteStream('logs.txt', { flags: 'a' });
 app.use(morgan('combined', { stream: logStream }));
