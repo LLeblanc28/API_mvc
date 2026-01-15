@@ -1,5 +1,5 @@
-const request = require('supertest');
-const app = require('../src/app'); // Assurez-vous que le chemin est correct
+import request from 'supertest';
+import app from '../src/app.js';
 
 describe('UserController', () => {
     it('should return all users', async () => {

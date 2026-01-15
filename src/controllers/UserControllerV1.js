@@ -1,27 +1,50 @@
-const User = require('../models/User');
+import { prisma } from '../../prisma.config.ts';
+
+// const User = require('../models/User');
 
 class UserController {
-    static index(req, res) {
-        res.json(User.getAll());
+    static async index(req, res) {
+        await prisma.users.findMany().then(users => {
+            res.json(users);
+        });
     }
 
-    static show(req, res) {
-        const user = User.getById(req.params.id);
+
+    static async show(req, res) {
+        const user = await prisma.users.findUnique({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        });
         res.json(user || { error: 'Non trouvé' });
     }
 
-    static new(req, res) {
-        res.status(201).json(User.create(req.body));
+    static async new(req, res) {
+        const newUser = await prisma.users.create({
+            data: req.body
+        });
+        res.json(newUser);
     }
 
-    static update(req, res) {
-        res.json(User.update(req.params.id, req.body));
+    static async update(req, res) {
+        const updatedUser = await prisma.users.update({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            data: req.body
+        });
+        res.json(updatedUser);
     }
 
-    static destroy(req, res) {
-        User.delete(req.params.id);
+    static async destroy(req, res) {
+        await prisma.users.delete({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        });
         res.json({ ok: true });
     }
 }
 
-module.exports = UserController;
+export default UserController;
+// module.exports = UserController;
