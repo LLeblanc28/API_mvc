@@ -1,7 +1,7 @@
 const express = require('express');
-const path = require('path');
+const path = require('node:path');
 const morgan = require('morgan');
-const fs = require('fs');
+const fs = require('node:fs');
 const routes = require('./routes/routes');
 
 const app = express();
