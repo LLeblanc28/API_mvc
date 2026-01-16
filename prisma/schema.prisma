@@ -12,3 +12,11 @@ model users {
   name  String @db.VarChar(255)
   email String @db.VarChar(255)
 }
+
+
+model test {
+  id        Int      @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name      String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

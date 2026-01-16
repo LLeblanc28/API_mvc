@@ -22,3 +22,8 @@ export * from './enums.ts';
  * 
  */
 export type users = Prisma.usersModel
+/**
+ * Model test
+ * 
+ */
+export type test = Prisma.testModel

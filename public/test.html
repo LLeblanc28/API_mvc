@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API REST - Test Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input {
+            padding: 8px;
+            margin: 5px 0;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Interface de Test API REST - Test</h1>
+    
+    <hr>
+    
+    <h2>📋 Liste des Tests</h2>
+    <button onclick="getAll()">GET /api/v1/tests</button>
+    
+    <hr>
+    
+    <h2>🔍 Détail d'un Test</h2>
+    <input type="number" id="detailId" placeholder="ID Test" value="1">
+    <button onclick="getById()">GET /api/v1/tests/:id</button>
+    
+    <hr>
+    
+    <h2>➕ Créer un Test</h2>
+    <input type="text" id="createName" placeholder="Nom" value="Test 1">
+    <button onclick="create()">POST /api/v1/tests</button>
+    
+    <hr>
+    
+    <h2>✏️ Mettre à Jour un Test</h2>
+    <input type="number" id="updateId" placeholder="ID" value="1">
+    <input type="text" id="updateName" placeholder="Nouveau nom" value="Test Updated">
+    <button onclick="update()">PUT /api/v1/tests/:id</button>
+    
+    <hr>
+    
+    <h2>🗑️ Supprimer un Test</h2>
+    <input type="number" id="deleteId" placeholder="ID" value="2">
+    <button onclick="delete_()">DELETE /api/v1/tests/:id</button>
+    
+    <hr>
+    
+    <h2>📤 Résultat</h2>
+    <pre id="result">Les résultats s'afficheront ici...</pre>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/v1';
+        const RESOURCE = 'tests';
+
+        function displayResult(data) {
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        }
+
+        function displayError(error) {
+            document.getElementById('result').textContent = 'ERREUR: ' + error.message;
+        }
+
+        // GET - Liste tous
+        async function getAll() {
+            try {
+                const response = await fetch(`${API_URL}/${RESOURCE}`);
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // GET - Détail par ID
+        async function getById() {
+            const id = document.getElementById('detailId').value;
+            try {
+                const response = await fetch(`${API_URL}/${RESOURCE}/${id}`);
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // POST - Créer
+        async function create() {
+            const name = document.getElementById('createName').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/${RESOURCE}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name })
+                });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // PUT - Mettre à jour
+        async function update() {
+            const id = document.getElementById('updateId').value;
+            const name = document.getElementById('updateName').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/${RESOURCE}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name })
+                });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+
+        // DELETE - Supprimer
+        async function delete_() {
+            const id = document.getElementById('deleteId').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/${RESOURCE}/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error);
+            }
+        }
+    </script>
+</body>
+</html>

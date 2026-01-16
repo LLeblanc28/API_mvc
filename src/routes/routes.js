@@ -1,6 +1,7 @@
 import express from 'express';
 import HomeController from '../controllers/HomeController.js'; 
 import UserControllerV1 from '../controllers/UserControllerV1.js';
+import TestController from '../controllers/TestController.js';
 
 const router = express.Router();
 // NON API
@@ -203,5 +204,24 @@ router.put(`${API_PREFIX}/users/:id`, UserControllerV1.update);
  *               $ref: '#/components/schemas/Error'
  */
 router.delete(`${API_PREFIX}/users/:id`, UserControllerV1.destroy);
+
+
+// API – Tests
+/**
+ * @swagger
+ * /api/v1/tests:
+ *   get:
+ *     summary: Récupérer tous les tests
+ *     tags:
+ *       - Tests
+ *     responses:
+ *       200:
+ *         description: Liste des tests récupérée avec succès
+ */
+router.get(`${API_PREFIX}/tests`, TestController.index);
+router.get(`${API_PREFIX}/tests/:id`, TestController.show);
+router.post(`${API_PREFIX}/tests`, TestController.create);
+router.put(`${API_PREFIX}/tests/:id`, TestController.update);
+router.delete(`${API_PREFIX}/tests/:id`, TestController.destroy);
 
 export default router;

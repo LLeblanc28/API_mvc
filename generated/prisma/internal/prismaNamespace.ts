@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  users: 'users'
+  users: 'users',
+  test: 'test'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "users"
+    modelProps: "users" | "test"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -470,6 +471,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    test: {
+      payload: Prisma.$testPayload<ExtArgs>
+      fields: Prisma.testFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.testFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.testFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload>
+        }
+        findFirst: {
+          args: Prisma.testFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.testFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload>
+        }
+        findMany: {
+          args: Prisma.testFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload>[]
+        }
+        create: {
+          args: Prisma.testCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload>
+        }
+        createMany: {
+          args: Prisma.testCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.testDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload>
+        }
+        update: {
+          args: Prisma.testUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload>
+        }
+        deleteMany: {
+          args: Prisma.testDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.testUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.testUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$testPayload>
+        }
+        aggregate: {
+          args: Prisma.TestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTest>
+        }
+        groupBy: {
+          args: Prisma.testGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.testCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -518,6 +585,16 @@ export const UsersScalarFieldEnum = {
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
 
 
+export const TestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -532,6 +609,13 @@ export const usersOrderByRelevanceFieldEnum = {
 } as const
 
 export type usersOrderByRelevanceFieldEnum = (typeof usersOrderByRelevanceFieldEnum)[keyof typeof usersOrderByRelevanceFieldEnum]
+
+
+export const testOrderByRelevanceFieldEnum = {
+  name: 'name'
+} as const
+
+export type testOrderByRelevanceFieldEnum = (typeof testOrderByRelevanceFieldEnum)[keyof typeof testOrderByRelevanceFieldEnum]
 
 
 
@@ -551,6 +635,13 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -656,6 +747,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   users?: Prisma.usersOmit
+  test?: Prisma.testOmit
 }
 
 /* Types for Logging */

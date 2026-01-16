@@ -19,9 +19,8 @@ export default defineConfig({
 
 // prisma.config.js
 
-import { PrismaClient } from './generated/prisma/client.js';
+import { PrismaClient } from './generated/prisma/client.ts';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { withAccelerate } from '@prisma/extension-accelerate'
 
 const mysql = new PrismaMariaDb({
   host: process.env.Host || 'localhost',

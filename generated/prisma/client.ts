@@ -44,3 +44,8 @@ export { Prisma }
  * 
  */
 export type users = Prisma.usersModel
+/**
+ * Model test
+ * 
+ */
+export type test = Prisma.testModel

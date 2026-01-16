@@ -51,7 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  users: 'users'
+  users: 'users',
+  test: 'test'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -79,6 +80,16 @@ export const UsersScalarFieldEnum = {
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
 
 
+export const TestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -93,4 +104,11 @@ export const usersOrderByRelevanceFieldEnum = {
 } as const
 
 export type usersOrderByRelevanceFieldEnum = (typeof usersOrderByRelevanceFieldEnum)[keyof typeof usersOrderByRelevanceFieldEnum]
+
+
+export const testOrderByRelevanceFieldEnum = {
+  name: 'name'
+} as const
+
+export type testOrderByRelevanceFieldEnum = (typeof testOrderByRelevanceFieldEnum)[keyof typeof testOrderByRelevanceFieldEnum]
 
